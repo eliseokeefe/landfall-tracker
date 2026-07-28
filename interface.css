@@ -1,0 +1,27 @@
+body {
+    font-family:'Times New Roman', Times, serif;
+    margin: 2rem; 
+    background-color: aliceblue;
+    color: black; 
+}
+
+table {
+    width: 100%; 
+    border-collapse: collapse; /*Merges cell borders and table's border for cleaner appearance*/
+    background-color: white;
+}
+
+thead {
+    background-color: blue; 
+    color: white;
+}
+
+th, td{
+    text-align: left; 
+    padding: 0.75rem; 
+    border-bottom: 2px solid gray; 
+}
+
+tbody tr:hover {
+    background-color: gray; /*Since there are many rows, being able to hover and highlight rows is helpful*/ 
+}
