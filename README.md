@@ -1,6 +1,6 @@
 # landfall-tracker
 
-This is a landfall tracker that tracks all landfalls occuring in Florida since 1900. Once storms in Florida that have created landfalls are determined, it outputs the date of the landfall, the name of the storm, and the max wind speed for each event. 
+This is a landfall tracker that tracks all landfalls occurring in Florida since 1900. Once storms in Florida that have created landfalls are determined, it outputs the date of the landfall, the name of the storm, and the max wind speed for each event. 
 
 The data are from NOAA Best Track Data (HURDAT2) and the raw data can be found in hurdat2.txt.
 
@@ -10,7 +10,7 @@ First I started debugging after I cleaned the data of whitespace and saved all t
 
 Second I created a method to convert the string coordinates to floats. I checked a few different sample coordinates to ensure the negatives worked properly, and once it did, I moved on.
 
-Third I debugged after I wrote the method to determine if the storm was in Florida. I used coordinates from https://map.motivasi.my.id/ to determine what would define Florida. I stored these results as booleans because I wanted to use them later to determine if a landfall occurred. I checked for the length of records and then created a Florida counter to see how many were from florida. I got: 
+Third I debugged after I wrote the method to determine if the storm was in Florida. I used coordinates from https://map.motivasi.my.id/ to determine what would define Florida. I stored these results as booleans because I wanted to use them later to determine if a landfall occurred. I checked for the length of records and then created a Florida counter to see how many were from Florida. I got: 
 "Total: 55605
 Florida:  2636"
 
@@ -25,7 +25,9 @@ for l in florida_landfalls:
 
 # User Interface
 
-Since the assignment asked for a simple user interface, I used HTML/CSS/JS. In order to transfer the results from Python to the browser, I converted it into JSON within the Python file, and then used Javascript to load this into my HTML file. I used an id in my table body in order to tell the Javascript where this data should load. I used simple CSS to make this a better experience for the user. 
+Since the assignment asked for a simple user interface, I used HTML/CSS/JS. In order to transfer the results from Python to the browser, I converted it into JSON (landfalls.json) within the Python file, and then used Javascript's fetch() function to load this file and dynamically write each <tr> into my HTML file per landfall. 
+
+I used an id in my table body in order to tell the Javascript where this data should load. I used simple CSS to make this a better experience for the user. I changed how the date was displayed in order to make it more user friendly (putting it in a format that people are used, MM/DD/YYYY, to rather than its Python form, YYYYMMDD). I also added a row hovering feature to highlight each row if people want to point out specific storms while using the application, since there is a lot of data on the screen and that can be overwhelming. 
 
 
 # Optimization 
@@ -37,9 +39,11 @@ I needed to decide how to remove values before 01/01/1900. I wanted to still sto
 # Assumptions
 
 1. Bounding 
+
 I created a box that covers ocean waters off of Florida's coast (Atlantic and Gulf Straits) as well as land. So a storm may slightly come out/inside of the box I created, but never actually crossing onto the land. These slight movements count in my method. I could not find a solid definition for how many landfalls occurred in Florida because different sources define landfall and NOAA has expressed that they are still studying these events, making a reference count change over time as data continues to be explored. 
 
 2. Including hurricanes or not 
+
 The bolded prompt says to identify all hurricanes that have made landfalls, but then the below texts says to identify storms that have made a landfall. Since storms is an overarching term, I opted to include more data in the final answer as this may be more helpful, but have the logic in how to make this application only track hurricanes if needed: 
 
 Line 69: if...and (records[i]["status"] == "HU"): 
@@ -47,21 +51,27 @@ Line 69: if...and (records[i]["status"] == "HU"):
 Changing this one line results in 97 landfalls rather than 274 without the filter. 
 
 3. Max Wind
+
 I am reporting the max wind during the landfall, because the instructions say "during the event". To me, the event is the landfall, because that is what I am mainly reporting on. I decided to grab the wind value (which was already recorded as the maximum during that record) when the water to land transition is detected, since that is when the landfall is actually occurring (the record marking the landfall). If I had looked at the max value at any other point in the storm's occurrence, I would not be looking at just the speed during the landfall event. 
 
 4. Not using built in L indicator 
+
 Since the assignment details said to try not use this, I did not use this, although I understand time complexity wise it would be quicker to use it. 
 
 5. Counting multiple landfalls per storm 
+
 I was unsure if I should count multiple landfalls per storm separately, but since the instructions never said to combine landfalls per storm, and each event is a separate landfall, I decided not to do this. Therefore, one storm can cause multiple landfalls, which is logical based on the context
 
 6. Where to cut off the date
+
 I did not know if I should include storms that started before 1900 and caused a landfall in the 1900s. I decided to include this because it asked for the landfalls to occur since 1900, not for the storm to occur since 1900. 
 
 7. Unnamed storms 
+
 Storms did not always have names (https://rainyseason.info/when-did-names-for-tropical-storms-begin-to-appear.html) therefore some storms are unnamed, but this is not a coding error. Rather there are no name available for those storms.
 
 8. Loading data onto user interface
+
 I opted to have the user run parser.py before the user interface. This is because I want the page to update automatically every time parser.py is ran, therefore allowing it to be built upon with future data. 
 
 # How to run application 
@@ -69,5 +79,5 @@ I opted to have the user run parser.py before the user interface. This is becaus
 2. Ensure hurdat2.txt is present in repository. If not, please use NOAA Best Track Data (HURDAT2) online data or contact me to fix this error. 
 3. In terminal, run parser.py for updated results 
 4. In terminal, run python -m http.server 8000
-5. In broswer, go to http://localhost:8000/interface.html
+5. In browser, go to http://localhost:8000/interface.html
 
