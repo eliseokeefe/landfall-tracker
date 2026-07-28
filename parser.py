@@ -1,15 +1,15 @@
 records = [] #creates empty record to eventually store cleaned data 
 landfalls = [] #creates empty record to eventually store all landfall events  
 
-def simplify_cords(cordinate):
-   direction = cordinate[-1] #checks the last character to see which direction the cordinate is in (N, S, W, E)
-   val = float(cordinate[:-1]) #grabs the number (not the direction) to change it from string to double 
+def simplify_cords(coordinate):
+   direction = coordinate[-1] #checks the last character to see which direction the cordinate is in (N, S, W, E)
+   val = float(coordinate[:-1]) #grabs the number (not the direction) to change it from string to double 
    if (direction == "S") or (direction == "W"): #makes negative if its south or west 
       val = -val 
-   return val  #returns number version of cordinate 
+   return val  #returns number version of coordinates 
 
 def is_florida(lat, long): 
-   #utilizes https://map.motivasi.my.id/ definition of florida's longitude and latitude to check if a hurricane was in florida 
+   #utilizes definition of florida's longitude and latitude to check if a hurricane was in florida 
    if(lat >= 24.5 and lat <= 31.0) and (long <= -79.0 and long >= -87.0):
       return True
    else: 
@@ -65,8 +65,8 @@ def is_landfall():
             prev_val = records[i-1]["in_florida"] #grab previous storm's in_florida boolean 
             cur_val = records[i]["in_florida"] #grab current storm's in_florida boolean 
 
-            #check if the previous value and current value are the same storm. Then check if the previous storm value was not in Florida but the current storm value is. Also checks if the storm was a hurricane and occured since 1900
-            if(cur_storm == prev_storm) and (prev_val == False) and (cur_val == True) and (records[i]["status"] == "HU") and (int(records[i]["date"]) >= 19000101): 
+            #check if the previous value and current value are the same storm. Then check if the previous storm value was not in Florida but the current storm value is. Also checks if the storm occured during or after 1900
+            if(cur_storm == prev_storm) and (prev_val == False) and (cur_val == True) and (int(records[i]["date"]) >= 19000101): 
                 #if the above criteria is true, it was a landfall. store that value into the landfall record created at the top
                 l = {
                     "storm_id": records[i]["storm_id"], 
@@ -80,8 +80,7 @@ def is_landfall():
 
 florida_landfalls = is_landfall()
 print("Number of landfall events:", len(florida_landfalls))
-for l in florida_landfalls[:15]:
-    print(l)
+
 
 
         
