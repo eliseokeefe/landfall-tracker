@@ -57,8 +57,13 @@ I did not know if I should include storms that started before 1900 and caused a 
 7. Unnamed storms 
 Storms did not always have names (https://rainyseason.info/when-did-names-for-tropical-storms-begin-to-appear.html) therefore some storms are unnamed, but this is not a coding error. Rather there are no name available for those storms.
 
+8. Loading data onto user interface
+I opted to have the user run parser.py before the user interface. This is because I want the page to update automatically every time parser.py is ran, therefore allowing it to be built upon with future data. 
+
 # How to run application 
 1. Install python on your IDE 
 2. Ensure hurdat2.txt is present in repository. If not, please use NOAA Best Track Data (HURDAT2) online data or contact me to fix this error. 
-3. run parser.py 
+3. In terminal, run parser.py for updated results 
+4. In terminal, run python -m http.server 8000
+5. In broswer, go to http://localhost:8000/interface.html
 
