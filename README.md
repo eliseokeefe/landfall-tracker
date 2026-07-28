@@ -4,7 +4,7 @@ This is a landfall tracker that tracks all landfalls occuring in Florida since 1
 
 The data are from NOAA Best Track Data (HURDAT2) and the raw data can be found in hurdat2.txt.
 
-# debugging & coding logic 
+# Debugging & Coding Logic 
 
 First I started debugging after I cleaned the data of whitespace and saved all the variables. I tried printing and checked if everything printed correctly, and once it did, I moved onto the next step.
 
@@ -22,6 +22,10 @@ florida_landfalls = is_landfall()
 print("Number of landfall events:", len(florida_landfalls))
 for l in florida_landfalls:
     print(l)
+
+# User Interface
+
+Since the assignment asked for a simple user interface, I used HTML/CSS/JS. In order to transfer the results from Python to the browser, I converted it into JSON within the Python file, and then used Javascript to load this into my HTML file. I used an id in my table body in order to tell the Javascript where this data should load. I used simple CSS to make this a better experience for the user. 
 
 
 # Optimization 
