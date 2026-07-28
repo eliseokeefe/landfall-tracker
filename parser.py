@@ -17,8 +17,6 @@ def is_florida(lat, long):
 
 #Open the data in python in read mode 
 with open("hurdat2.txt", "r") as hurricanedata: 
-    current_storm_id = None
-    current_storm_name = None 
     for i, line in enumerate(hurricanedata): #loop goes through dataset
        clean = line.strip() #removes outer whietespace 
        fields = clean.split(",") #provides list of fields 
@@ -28,7 +26,7 @@ with open("hurdat2.txt", "r") as hurricanedata:
         #grabs data specific variables & stores them 
         date = fields[0].strip()
         time = fields[1].strip()
-        s_id = fields[2].strip() #not using since I am avoiding the landfall indicator variable
+        storm_indicator = fields[2].strip() #not using since I am avoiding the landfall indicator variable
         status = fields[3].strip()
         latitude = fields[4].strip()
         latitude = simplify_cords(latitude) #calls method above to change cordinates to numbers rather than strings 
@@ -78,8 +76,6 @@ def is_landfall():
     #once the entire record has been looped through, return the landfall events 
     return landfalls 
 
-florida_landfalls = is_landfall()
-print("Number of landfall events:", len(florida_landfalls))
 
 
 
