@@ -1,3 +1,11 @@
+function formatDate(yyyymmdd){
+    //create separate variables for year, month, day
+    const year = yyyymmdd.slice(0,4); 
+    const month = yyyymmdd.slice(4,6); 
+    const day = yyyymmdd.slice(6,8);
+    return month + "/" + day + "/" + year; 
+}
+
 async function loadLandfalls(){
     //utilizing the id in my HTML, I define a constant to work with this later in my JS code 
     const tbody = document.getElementById("landfall-body"); 
@@ -19,7 +27,7 @@ async function loadLandfalls(){
         nameCell.textContent = event.storm_name; 
 
         const dateCell = document.createElement("td");  //display the storm's date
-        dateCell.textContent = event.date; 
+        dateCell.textContent = formatDate(event.date); 
 
         const windCell = document.createElement("td");   //display the landfall's max wind speed
         windCell.textContent = event.max_wind; 
