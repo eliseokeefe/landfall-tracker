@@ -76,14 +76,6 @@ def is_landfall():
     #once the entire record has been looped through, return the landfall events 
     return landfalls 
 
-#allow data to be transformed to HTML in order to render in browser
-
-import json
-florida_landfalls = is_landfall()
-#create json file 
-with open("landfalls.json", "w") as outfile: 
-#write data into json file to make it readable to browser. indent=2 spaces out the data to make it more readable to the user
-   json.dump(florida_landfalls, outfile, indent=2)
 
 
 

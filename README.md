@@ -75,8 +75,8 @@ Storms did not always have names (https://rainyseason.info/when-did-names-for-tr
 
 # How to run application 
 1. Ensure hurdat2.txt is present in repository. If not, please use NOAA Best Track Data (HURDAT2) online data or contact me to fix this error. 
-2. Install python through terminal if not already done before 
-3. Install flask through: python -m pip install flask 
+2. Install python onto your computer, if not already done before 
+3. Install flask through the terminal: python -m pip install flask 
 4. In terminal, run: python app.py 
 5. In your browser, go to http://localhost:8000/
 
