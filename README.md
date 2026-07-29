@@ -36,7 +36,7 @@ I first created the method for the specific data for 1900 and after in florida, 
 
 I needed to decide how to remove values before 01/01/1900. I wanted to still store these, as this would allow this application to be versatile if someone did want to create another method that included these values. Therefore, I wanted to figure out a way to not include these in the landfall method I created for this prompt without dropping them from the record permanently. However, I found that I would have to use time to filter this nonetheless in order to determine if something was a landfall (O(n) time, and adding another check is O(1)), and since I did want to include all the data given by NOAA in my overall record, it was better to do this in the if statement within my prompt specific method than remove anything from before 1900 from the record. This allows the application to have access to the data available and have different methods created based on need in the future. 
 
-In order to not reparse the HURDAT2 file every time the page is refreshed, I used a boolean in app.py that returns the already created JSON file if it has been loaded. 
+In order to not reparse the HURDAT2 file every time the page is refreshed, I used a boolean in app.py that returns the already created cached data if it has been loaded. 
 
 # Assumptions
 
