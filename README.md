@@ -25,9 +25,9 @@ for l in florida_landfalls:
 
 # User Interface
 
-Since the assignment asked for a simple user interface, I used HTML/CSS/JS. In order to transfer the results from Python to the browser, I converted it into JSON (landfalls.json) within the Python file, and then used Javascript's fetch() function to load this file and dynamically write each <tr> into my HTML file per landfall. 
+Since the assignment asked for a simple user interface, I used HTML/CSS/JS/Flask. 
 
-I used an id in my table body in order to tell the Javascript where this data should load. I used simple CSS to make this a better experience for the user. I changed how the date was displayed in order to make it more user friendly (putting it in a format that people are used, MM/DD/YYYY, to rather than its Python form, YYYYMMDD). I also added a row hovering feature to highlight each row if people want to point out specific storms while using the application, since there is a lot of data on the screen and that can be overwhelming. 
+I used an id in my table body in order to tell the Javascript where this data should load. Flask is used in app.py to create an api route that runs is_landfall() and returns the result in JSON. script.js is then used to call the API to retrieve the data, and then dynamically loads it into the user interface. I used simple CSS to make this a better experience for the user. I changed how the date was displayed in order to make it more user friendly (putting it in a format that people are used, MM/DD/YYYY, to rather than its Python form, YYYYMMDD). I also added a row hovering feature to highlight each row if people want to point out specific storms while using the application, since there is a lot of data on the screen and that can be overwhelming. 
 
 
 # Optimization 
@@ -36,11 +36,13 @@ I first created the method for the specific data for 1900 and after in florida, 
 
 I needed to decide how to remove values before 01/01/1900. I wanted to still store these, as this would allow this application to be versatile if someone did want to create another method that included these values. Therefore, I wanted to figure out a way to not include these in the landfall method I created for this prompt without dropping them from the record permanently. However, I found that I would have to use time to filter this nonetheless in order to determine if something was a landfall (O(n) time, and adding another check is O(1)), and since I did want to include all the data given by NOAA in my overall record, it was better to do this in the if statement within my prompt specific method than remove anything from before 1900 from the record. This allows the application to have access to the data available and have different methods created based on need in the future. 
 
+In order to not reparse the HURDAT2 file every time the page is refreshed, I used a boolean in app.py that returns the already created JSON file if it has been loaded. 
+
 # Assumptions
 
 1. Bounding 
 
-I created a box that covers ocean waters off of Florida's coast (Atlantic and Gulf Straits) as well as land. So a storm may slightly come out/inside of the box I created, but never actually crossing onto the land. These slight movements count in my method. I could not find a solid definition for how many landfalls occurred in Florida because different sources define landfall and NOAA has expressed that they are still studying these events, making a reference count change over time as data continues to be explored. 
+I created a box that covers ocean waters off of Florida's coast (Atlantic and Gulf Straits) as well as land. So a storm may slightly come out/inside of the box I created, but never actually crossing onto the land. These slight movements count in my method. I could not find a solid definition for how many landfalls occurred in Florida because different sources define landfalls differently, and NOAA has expressed that they are still studying these events, making a reference count change over time as data continues to be explored. 
 
 2. Including hurricanes or not 
 
@@ -70,14 +72,11 @@ I did not know if I should include storms that started before 1900 and caused a 
 
 Storms did not always have names (https://rainyseason.info/when-did-names-for-tropical-storms-begin-to-appear.html) therefore some storms are unnamed, but this is not a coding error. Rather there are no name available for those storms.
 
-8. Loading data onto user interface
-
-I opted to have the user run parser.py before the user interface. This is because I want the page to update automatically every time parser.py is ran, therefore allowing it to be built upon with future data. 
 
 # How to run application 
-1. Install python on your IDE 
-2. Ensure hurdat2.txt is present in repository. If not, please use NOAA Best Track Data (HURDAT2) online data or contact me to fix this error. 
-3. In terminal, run parser.py for updated results 
-4. In terminal, run python -m http.server 8000
-5. In browser, go to http://localhost:8000/interface.html
+1. Ensure hurdat2.txt is present in repository. If not, please use NOAA Best Track Data (HURDAT2) online data or contact me to fix this error. 
+2. Install python through terminal if not already done before 
+3. Install flask through: python -m pip install flask 
+4. In terminal, run: python app.py 
+5. In your browser, go to http://localhost:8000/
 

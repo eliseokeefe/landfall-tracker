@@ -11,7 +11,7 @@ async function loadLandfalls(){
     const tbody = document.getElementById("landfall-body"); 
     //using a try catch statement to load the information in order to ensure errors are expressed to the user 
     try{
-        const response = await fetch("landfalls.json"); 
+          const response = await fetch("/api/landfalls");
           if(!response.ok){ //if the json cannot be loaded, display the error to the user 
             throw new Error(`Failed to load information from landfalls.json (status ${response.status})`);
           }
