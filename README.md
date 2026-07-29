@@ -78,5 +78,5 @@ Storms did not always have names (https://rainyseason.info/when-did-names-for-tr
 2. Install python onto your computer, if not already done before 
 3. Install flask through the terminal: python -m pip install flask 
 4. In terminal, run: python app.py 
-5. In your browser, go to http://localhost:8000/
+5. In your browser, go to http://localhost:8000/interface.html
 
